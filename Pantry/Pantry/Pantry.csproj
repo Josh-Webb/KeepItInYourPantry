@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <UserSecretsId>aspnet-Pantry-7BE5ABE7-DE8C-4628-BFB5-C4BB2F551FE0</UserSecretsId>
+    <UserSecretsId>aspnet-Pantry-B2C99B07-178A-4A19-91E5-DD3EC5315902</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
