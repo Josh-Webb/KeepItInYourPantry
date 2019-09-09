@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Pantry.Models;
 
 namespace Pantry.Data
 {
@@ -12,5 +13,8 @@ namespace Pantry.Data
             : base(options)
         {
         }
+        public DbSet<Pantry.Models.Ingredient> Ingredient { get; set; }
+        public DbSet<Pantry.Models.Category> Category { get; set; }
+        public DbSet<Pantry.Models.Recipe> Recipe { get; set; }
     }
 }
