@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Pantry.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Pantry.Models;
 
 namespace Pantry
 {
@@ -38,7 +39,7 @@ namespace Pantry
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
