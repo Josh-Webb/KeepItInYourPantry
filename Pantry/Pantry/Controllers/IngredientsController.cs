@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,16 +14,25 @@ namespace Pantry.Controllers
     public class IngredientsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public IngredientsController(ApplicationDbContext context)
+        public IngredientsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Ingredients
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Ingredient.ToListAsync());
+            var user = await GetUserAsync();
+
+            var applicationDbContext = _context.Ingredient
+                .Where(p => p.UserId == user.Id)
+                .Include(p => p.User)
+                .Include(p => p.Category);
+            return View(await applicationDbContext.ToListAsync());
+            //return View(await _context.Ingredient.ToListAsync());
         }
 
         // GET: Ingredients/Details/5
@@ -91,6 +101,8 @@ namespace Pantry.Controllers
             {
                 return NotFound();
             }
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Label", ingredient.CategoryId);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", ingredient.UserId);
             return View(ingredient);
         }
 
@@ -161,6 +173,11 @@ namespace Pantry.Controllers
         private bool IngredientExists(int id)
         {
             return _context.Ingredient.Any(e => e.IngredientId == id);
+        }
+
+        private Task<ApplicationUser> GetUserAsync()
+        {
+            return _userManager.GetUserAsync(HttpContext.User);
         }
     }
 }

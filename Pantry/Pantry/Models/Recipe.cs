@@ -18,5 +18,6 @@ namespace Pantry.Models
         public string Image { get; set; }
         [Required]
         public int UserId { get; set;  }
+        public ApplicationUser User { get; set; }
     }
 }

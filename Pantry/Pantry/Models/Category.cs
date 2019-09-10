@@ -12,5 +12,7 @@ namespace Pantry.Models
         public int CategoryId { get; set; }
         [Required]
         public string Title { get; set; }
+
+        public virtual ICollection<Ingredient> Ingredients { get; set; }
     }
 }
