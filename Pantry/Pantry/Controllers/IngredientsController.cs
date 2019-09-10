@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,27 +13,18 @@ namespace Pantry.Controllers
     public class IngredientsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public IngredientsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public IngredientsController(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
         // GET: Ingredients
         public async Task<IActionResult> Index()
         {
-            var user = await GetUserAsync();
-
-            var applicationDbContext = _context.Ingredient
-                .Where(p => p.UserId == user.Id)
-                .Include(p => p.User)
-                .Include(p => p.Category);
+            var applicationDbContext = _context.Ingredient.Include(i => i.User);
             return View(await applicationDbContext.ToListAsync());
-            //return View(await _context.Ingredient.ToListAsync());
         }
-
 
         // GET: Ingredients/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -58,19 +48,7 @@ namespace Pantry.Controllers
         // GET: Ingredients/Create
         public IActionResult Create()
         {
-            var categoryList = _context.Category.ToList();
-            var categoryListSelectList = categoryList.Select(type => new SelectListItem
-            {
-                Text = type.Title,
-                Value = type.CategoryId.ToString()
-            }).ToList();
-            categoryListSelectList.Insert(0, new SelectListItem
-            {
-                Text = "Choose Category...",
-                Value = ""
-            });
-            ViewData["CategoryId"] = categoryListSelectList;
-
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
             return View();
         }
 
@@ -87,9 +65,9 @@ namespace Pantry.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", ingredient.UserId);
             return View(ingredient);
         }
-
 
         // GET: Ingredients/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -178,11 +156,5 @@ namespace Pantry.Controllers
         {
             return _context.Ingredient.Any(e => e.IngredientId == id);
         }
-
-        private Task<ApplicationUser> GetUserAsync()
-        {
-            return _userManager.GetUserAsync(HttpContext.User);
-        }
-
     }
 }
