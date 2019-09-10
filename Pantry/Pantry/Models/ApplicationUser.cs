@@ -22,3 +22,4 @@ namespace Pantry.Models
         public virtual ICollection<Recipe> Recipes { get; set; }
     }
 }
+
