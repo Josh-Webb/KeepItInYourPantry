@@ -35,6 +35,7 @@ namespace Pantry.Controllers
             //return View(await _context.Ingredient.ToListAsync());
         }
 
+
         // GET: Ingredients/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -44,6 +45,7 @@ namespace Pantry.Controllers
             }
 
             var ingredient = await _context.Ingredient
+                .Include(i => i.User)
                 .FirstOrDefaultAsync(m => m.IngredientId == id);
             if (ingredient == null)
             {
@@ -88,6 +90,7 @@ namespace Pantry.Controllers
             return View(ingredient);
         }
 
+
         // GET: Ingredients/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -101,7 +104,6 @@ namespace Pantry.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Label", ingredient.CategoryId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", ingredient.UserId);
             return View(ingredient);
         }
@@ -138,6 +140,7 @@ namespace Pantry.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", ingredient.UserId);
             return View(ingredient);
         }
 
@@ -150,6 +153,7 @@ namespace Pantry.Controllers
             }
 
             var ingredient = await _context.Ingredient
+                .Include(i => i.User)
                 .FirstOrDefaultAsync(m => m.IngredientId == id);
             if (ingredient == null)
             {
@@ -179,5 +183,6 @@ namespace Pantry.Controllers
         {
             return _userManager.GetUserAsync(HttpContext.User);
         }
+
     }
 }

@@ -14,9 +14,9 @@ namespace Pantry.Models
 
         }
 
-        [Required]
-        [Display(Name = "User Name")]
-        public string UserName { get; set; }
+        //[Required]
+        //[Display(Name = "User Name")]
+        //public string UserName { get; set; }
 
         public virtual ICollection<Ingredient> Ingredients { get; set; }
         public virtual ICollection<Recipe> Recipes { get; set; }
