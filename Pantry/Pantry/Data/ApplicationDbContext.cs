@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Pantry.Models;
+using Pantry.Models.CategoryViewModels;
 
 namespace Pantry.Data
 {
@@ -17,5 +18,6 @@ namespace Pantry.Data
         public DbSet<Pantry.Models.Ingredient> Ingredient { get; set; }
         public DbSet<Pantry.Models.Category> Category { get; set; }
         public DbSet<Pantry.Models.Recipe> Recipe { get; set; }
+        public DbSet<Pantry.Models.CategoryViewModels.CategoryViewModel> CategoryViewModel { get; set; }
     }
 }

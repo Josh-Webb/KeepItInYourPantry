@@ -16,7 +16,7 @@ namespace Pantry.Models
         [RegularExpression("^[a-zA-Z0-9 ]*$")]
         public string Title { get; set; }
         [Required]
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
         [Required]
         public string Quantity { get; set; }
         [Required]

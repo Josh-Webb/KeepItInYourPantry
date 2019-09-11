@@ -1,0 +1,25 @@
+﻿@model Pantry.Models.CategoryViewModels.CategoryViewModel
+
+
+
+<h1>Categories</h1>
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.GroupedCategories)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                    (@Html.DisplayFor(modelItem => item.IngredientCount))
+                    <br />
+                    @foreach (var ingredient in item.Ingredients)
+                    {
+                        @Html.ActionLink(ingredient.Title, "Details", new {  id = ingredient.IngredientId})
+                        <br />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
