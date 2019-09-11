@@ -10,14 +10,19 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CategoryName)
-                    (@Html.DisplayFor(modelItem => item.IngredientCount))
+                    @Html.DisplayFor(modelItem => item.CategoryName) || (@Html.DisplayFor(modelItem => item.IngredientCount))
                     <br />
+
+
+
+
                     @foreach (var ingredient in item.Ingredients)
                     {
-                        @Html.ActionLink(ingredient.Title, "Details", new {  id = ingredient.IngredientId})
+                        @Html.ActionLink(ingredient.Title, "Details", new { id = ingredient.IngredientId })
                         <br />
                     }
+                    <br />
+                    @Html.ActionLink("See all...", "Details", "Categories", new { id = item.CatId }, null)
                 </td>
             </tr>
         }
