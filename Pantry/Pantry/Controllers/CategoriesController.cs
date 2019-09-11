@@ -34,6 +34,7 @@ namespace Pantry.Controllers
             }
 
             var category = await _context.Category
+                .Include(m => m.Ingredients)
                 .FirstOrDefaultAsync(m => m.CategoryId == id);
             if (category == null)
             {

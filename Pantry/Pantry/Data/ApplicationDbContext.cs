@@ -19,5 +19,6 @@ namespace Pantry.Data
         public DbSet<Pantry.Models.Category> Category { get; set; }
         public DbSet<Pantry.Models.Recipe> Recipe { get; set; }
         public DbSet<Pantry.Models.CategoryViewModels.CategoryViewModel> CategoryViewModel { get; set; }
+        public DbSet<Pantry.Models.GroupedCategories> GroupedCategories { get; set; }
     }
 }
