@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pantry.Data;
 using Pantry.Models;
+using Pantry.Models.CategoryViewModels;
 
 namespace Pantry.Controllers
 {
@@ -185,6 +186,26 @@ namespace Pantry.Controllers
         private Task<ApplicationUser> GetUserAsync()
         {
             return _userManager.GetUserAsync(HttpContext.User);
+        }
+
+        //Ingredient Category View
+        public async Task<IActionResult> Categories()
+        {
+            var model = new CategoryViewModel();
+
+            model.GroupedCategories = await (
+                from t in _context.Category
+                join p in _context.Ingredient
+                on t.CategoryId equals p.CategoryId
+                group new { t, p } by new { t.CategoryId, t.Title } into grouped
+                select new GroupedCategories
+                {
+                    CatId = grouped.Key.CategoryId,
+                    CategoryName = grouped.Key.Title,
+                    IngredientCount = grouped.Select(x => x.p.IngredientId).Count(),
+                    Ingredients = grouped.Select(x => x.p).Take(5)
+                }).ToListAsync();
+            return View(model);
         }
     }
 }

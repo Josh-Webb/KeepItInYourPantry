@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pantry.Data;
 
 namespace Pantry.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190910232117_updated models")]
+    partial class updatedmodels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,48 +197,12 @@ namespace Pantry.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryViewModelCategoryId");
-
                     b.Property<string>("Title")
                         .IsRequired();
 
                     b.HasKey("CategoryId");
 
-                    b.HasIndex("CategoryViewModelCategoryId");
-
                     b.ToTable("Category");
-                });
-
-            modelBuilder.Entity("Pantry.Models.CategoryViewModels.CategoryViewModel", b =>
-                {
-                    b.Property<int>("CategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("IngredientId");
-
-                    b.HasKey("CategoryId");
-
-                    b.ToTable("CategoryViewModel");
-                });
-
-            modelBuilder.Entity("Pantry.Models.GroupedCategories", b =>
-                {
-                    b.Property<int>("CatId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CategoryName");
-
-                    b.Property<int?>("CategoryViewModelCategoryId");
-
-                    b.Property<int>("IngredientCount");
-
-                    b.HasKey("CatId");
-
-                    b.HasIndex("CategoryViewModelCategoryId");
-
-                    b.ToTable("GroupedCategories");
                 });
 
             modelBuilder.Entity("Pantry.Models.Ingredient", b =>
@@ -246,8 +212,6 @@ namespace Pantry.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CategoryId");
-
-                    b.Property<int?>("GroupedCategoriesCatId");
 
                     b.Property<string>("Quantity")
                         .IsRequired();
@@ -261,8 +225,6 @@ namespace Pantry.Data.Migrations
                     b.HasKey("IngredientId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("GroupedCategoriesCatId");
 
                     b.HasIndex("UserId");
 
@@ -349,30 +311,12 @@ namespace Pantry.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Pantry.Models.Category", b =>
-                {
-                    b.HasOne("Pantry.Models.CategoryViewModels.CategoryViewModel")
-                        .WithMany("Categories")
-                        .HasForeignKey("CategoryViewModelCategoryId");
-                });
-
-            modelBuilder.Entity("Pantry.Models.GroupedCategories", b =>
-                {
-                    b.HasOne("Pantry.Models.CategoryViewModels.CategoryViewModel")
-                        .WithMany("GroupedCategories")
-                        .HasForeignKey("CategoryViewModelCategoryId");
-                });
-
             modelBuilder.Entity("Pantry.Models.Ingredient", b =>
                 {
                     b.HasOne("Pantry.Models.Category", "Category")
                         .WithMany("Ingredients")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Pantry.Models.GroupedCategories")
-                        .WithMany("Ingredients")
-                        .HasForeignKey("GroupedCategoriesCatId");
 
                     b.HasOne("Pantry.Models.ApplicationUser", "User")
                         .WithMany("Ingredients")
