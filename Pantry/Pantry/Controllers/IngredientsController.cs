@@ -191,12 +191,14 @@ namespace Pantry.Controllers
         //Ingredient Category View
         public async Task<IActionResult> Categories()
         {
+            var loggedUser = await GetUserAsync();
             var model = new CategoryViewModel();
 
             model.GroupedCategories = await (
                 from t in _context.Category
                 join p in _context.Ingredient
                 on t.CategoryId equals p.CategoryId
+                where p.UserId == loggedUser.Id
                 group new { t, p } by new { t.CategoryId, t.Title } into grouped
                 select new GroupedCategories
                 {
