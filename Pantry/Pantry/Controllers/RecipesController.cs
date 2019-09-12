@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Pantry.Data;
 using Pantry.Models;
 
@@ -12,17 +15,25 @@ namespace Pantry.Controllers
 {
     public class RecipesController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _config;
+        private readonly string _byIngredientsUrl = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=";
 
-        public RecipesController(ApplicationDbContext context)
+
+        public RecipesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IConfiguration config)
         {
             _context = context;
+            _userManager = userManager;
+            _config = config;
         }
 
         // GET: Recipes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Recipe.ToListAsync());
+            var rec = await GetRecipesAsync();
+            return View(rec);
+           //return View(await _context.Recipe.ToListAsync());
         }
 
         // GET: Recipes/Details/5
@@ -148,6 +159,39 @@ namespace Pantry.Controllers
         private bool RecipeExists(int id)
         {
             return _context.Recipe.Any(e => e.RecipeId == id);
+        }
+
+
+        private Task<ApplicationUser> GetUserAsync()
+        {
+            return _userManager.GetUserAsync(HttpContext.User);
+        }
+
+        
+
+        private async Task<Recipe> GetRecipesAsync()
+        {
+            var user = await GetUserAsync();
+            var ingredientsList = String.Join(",+", _context.Ingredient
+                .Where(p => p.UserId == user.Id)
+                .Select(i => i.Title));
+            var key = _config["ApiKeys:Spoonacular"];
+            var url = $"{_byIngredientsUrl}{key}&ingredients={ingredientsList}";
+            var client = new HttpClient();
+            var response = await client.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var recipes = await response.Content.ReadAsAsync<Recipe>();
+                return recipes;
+            }
+            else
+            {
+                return null;
+            }
+
+            
+
         }
     }
 }
