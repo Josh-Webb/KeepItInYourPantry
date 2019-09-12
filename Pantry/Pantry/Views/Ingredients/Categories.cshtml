@@ -8,6 +8,8 @@
     <tbody>
         @foreach (var item in Model.GroupedCategories)
         {
+            @if (item.IngredientCount >= 1)
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.CategoryName) || (@Html.DisplayFor(modelItem => item.IngredientCount))
@@ -18,13 +20,16 @@
 
                     @foreach (var ingredient in item.Ingredients)
                     {
+
                         @Html.ActionLink(ingredient.Title, "Details", new { id = ingredient.IngredientId })
                         <br />
-                    }
+
+            }
                     <br />
                     @Html.ActionLink("See all...", "Details", "Categories", new { id = item.CatId }, null)
                 </td>
             </tr>
-        }
+                }
+            }
     </tbody>
 </table>

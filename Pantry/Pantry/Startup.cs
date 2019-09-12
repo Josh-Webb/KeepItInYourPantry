@@ -71,7 +71,7 @@ namespace Pantry
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Ingredients}/{action=Categories}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
