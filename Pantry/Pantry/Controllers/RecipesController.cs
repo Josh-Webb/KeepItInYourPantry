@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Pantry.Data;
 using Pantry.Models;
+using Pantry.Models.SpoonacularViewModels;
 
 namespace Pantry.Controllers
 {
@@ -169,29 +170,41 @@ namespace Pantry.Controllers
 
         
 
-        private async Task<Recipe> GetRecipesAsync()
+        private async Task<IEnumerable<RecipeForListModel>> GetRecipesAsync()
         {
             var user = await GetUserAsync();
             var ingredientsList = String.Join(",+", _context.Ingredient
                 .Where(p => p.UserId == user.Id)
                 .Select(i => i.Title));
             var key = _config["ApiKeys:Spoonacular"];
-            var url = $"{_byIngredientsUrl}{key}&ingredients={ingredientsList}";
+            var url = $"{_byIngredientsUrl}{key}&ingredients={ingredientsList}&ranking=2";
             var client = new HttpClient();
             var response = await client.GetAsync(url);
-
+            //var model = new RecipeListModel();
+            
+            
             if (response.IsSuccessStatusCode)
             {
-                var recipes = await response.Content.ReadAsAsync<Recipe>();
+                //var model = new 
+                
+                var recipes = await response.Content.ReadAsAsync<IEnumerable<RecipeForListModel>>();
                 return recipes;
             }
             else
             {
                 return null;
             }
-
-            
-
         }
+
+        //private async Task<RecipeListModel> FullListAsync()
+        //{
+        //    var firstList = await GetRecipesAsync();
+        //    var model = new RecipeListModel()
+        //    {
+        //    }
+           
+        //}
+
+        
     }
 }

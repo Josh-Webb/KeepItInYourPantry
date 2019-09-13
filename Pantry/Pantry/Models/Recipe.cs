@@ -16,7 +16,6 @@ namespace Pantry.Models
         public string CookTime { get; set; }
         public int SpoonacularId { get; set; }
         public string Image { get; set; }
-        [Required]
         public int UserId { get; set;  }
         public ApplicationUser User { get; set; }
     }

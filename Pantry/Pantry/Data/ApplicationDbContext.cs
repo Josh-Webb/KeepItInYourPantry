@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Pantry.Models;
 using Pantry.Models.CategoryViewModels;
+using Pantry.Models.SpoonacularViewModels;
 
 namespace Pantry.Data
 {
@@ -20,5 +21,6 @@ namespace Pantry.Data
         public DbSet<Pantry.Models.Recipe> Recipe { get; set; }
         public DbSet<Pantry.Models.CategoryViewModels.CategoryViewModel> CategoryViewModel { get; set; }
         public DbSet<Pantry.Models.GroupedCategories> GroupedCategories { get; set; }
+        public DbSet<Pantry.Models.SpoonacularViewModels.RecipeForListModel> RecipeForListModel { get; set; }
     }
 }
