@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Pantry.Models.SpoonacularViewModels
 {
-    public class AnalyzedInstructions
+    public class StepsViewModel
     {
         public int Id { get; set; }
-
-        public IList<StepsViewModel> Steps { get; set; }
+        public int Number { get; set; }
+        public string Step { get; set; }
     }
 }

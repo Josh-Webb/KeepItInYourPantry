@@ -22,5 +22,6 @@ namespace Pantry.Data
         public DbSet<Pantry.Models.CategoryViewModels.CategoryViewModel> CategoryViewModel { get; set; }
         public DbSet<Pantry.Models.GroupedCategories> GroupedCategories { get; set; }
         public DbSet<Pantry.Models.SpoonacularViewModels.RecipeForListModel> RecipeForListModel { get; set; }
+        public DbSet<Pantry.Models.SpoonacularViewModels.RecipeDetailsView> RecipeDetailsView { get; set; }
     }
 }

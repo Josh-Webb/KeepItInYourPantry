@@ -33,7 +33,7 @@ namespace Pantry.Controllers
         // GET: Recipes
         public async Task<IActionResult> Index()
         {
-            var rec = await GetFullRecipe();
+            var rec = await GetRecipesAsync();
             return View(rec);
            //return View(await _context.Recipe.ToListAsync());
         }
@@ -43,11 +43,12 @@ namespace Pantry.Controllers
         {
             if (id == null)
             {
-                return NotFound();
-            }
 
-            var recipe = await _context.Recipe
-                .FirstOrDefaultAsync(m => m.RecipeId == id);
+            }
+            
+
+            var recipe = await GetFullRecipe(id);
+
             if (recipe == null)
             {
                 return NotFound();
@@ -197,10 +198,9 @@ namespace Pantry.Controllers
             }
         }
 
-        private async Task<RecipeDetailsView> GetFullRecipe()
+        private async Task<RecipeDetailsView> GetFullRecipe(int? id)
         {
             var key = _config["ApiKeys:Spoonacular"];
-            var id = 518823;
             var url = $"{_fullRecipeUrl}{id}/information?apiKey={key}";
             var client = new HttpClient();
             var response = await client.GetAsync(url);

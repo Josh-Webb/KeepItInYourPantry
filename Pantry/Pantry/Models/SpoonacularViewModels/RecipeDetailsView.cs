@@ -10,7 +10,7 @@ namespace Pantry.Models.SpoonacularViewModels
         public int Id { get; set; }
         
         public string Title { get; set; }
-        public int CookTime { get; set; }
+        public int ReadyInMinutes { get; set; }
 
         public int Servings { get; set; }
 
@@ -19,6 +19,6 @@ namespace Pantry.Models.SpoonacularViewModels
 
         public virtual ICollection<ExtendedIngredientsViewModel> ExtendedIngredients { get; set; }
 
-        public virtual ICollection<AnalyzedInstruction> AnalyzedInstructions { get; set; }
+        public virtual ICollection<AnalyzedInstructions> AnalyzedInstructions { get; set; }
     }
 }
