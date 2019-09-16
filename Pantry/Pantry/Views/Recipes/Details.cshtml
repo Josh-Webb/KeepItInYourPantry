@@ -31,9 +31,7 @@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Image)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Image)
-        </dd>
+        <img src="@Url.Content($"https://spoonacular.com/recipeImages/{Model.Id}-480x360.{Model.ImageType}")" />
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ImageType)
         </dt>
@@ -45,7 +43,7 @@
     @foreach (var model in Model.ExtendedIngredients)
 {
             <div>
-                @Html.DisplayFor(modelItem => model.Image)
+                <img src="@Url.Content($"https://spoonacular.com/cdn/ingredients_100x100/{model.Image}")" />
             <br />
                 @Html.DisplayFor(modelItem => model.OriginalString)
             </div>

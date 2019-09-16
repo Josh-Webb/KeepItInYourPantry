@@ -22,9 +22,6 @@
                 @Html.DisplayNameFor(model => model.Image)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ImageType)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.UsedIngredientCount)
             </th>
             <th>
@@ -43,11 +40,8 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageType)
-            </td>
+            <img src="@Url.Content($"https://spoonacular.com/recipeImages/{item.Id}-240x150.{item.ImageType}")" />
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UsedIngredientCount)
             </td>
