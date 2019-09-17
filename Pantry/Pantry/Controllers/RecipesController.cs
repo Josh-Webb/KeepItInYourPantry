@@ -72,6 +72,7 @@ namespace Pantry.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 _context.Add(recipe);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
