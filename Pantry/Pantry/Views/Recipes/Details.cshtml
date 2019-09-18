@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    var recipeSave = new Recipe();
 }
 
 <h1>Details</h1>
@@ -41,28 +42,40 @@
     </dl>
 
     @foreach (var model in Model.ExtendedIngredients)
-{
-            <div>
-                <img src="@Url.Content($"https://spoonacular.com/cdn/ingredients_100x100/{model.Image}")" />
+    {
+        <div>
+            <img src="@Url.Content($"https://spoonacular.com/cdn/ingredients_100x100/{model.Image}")" />
             <br />
-                @Html.DisplayFor(modelItem => model.OriginalString)
-            </div>
-}
+            @Html.DisplayFor(modelItem => model.OriginalString)
+        </div>
+    }
 
     @foreach (var model in Model.AnalyzedInstructions)
     {
         @foreach (var modelItem in model.Steps)
 
-        { 
-        <div>
-            @Html.DisplayFor(stepItem => modelItem.Number)
-            <br />
-            @Html.DisplayFor(stepItem => modelItem.Step)
+        {
+            <div>
+                @Html.DisplayFor(stepItem => modelItem.Number)
+                <br />
+                @Html.DisplayFor(stepItem => modelItem.Step)
 
-        </div>
+            </div>
         }
     }
 </div>
+<form asp-action="Create">
+<input type="hidden" asp-for="@recipeSave.UserId" />
+<input type="hidden" asp-for="@recipeSave.Image" />
+<input type="hidden" asp-for="@recipeSave.ReadyInMinutes" />
+<input type="hidden" asp-for="@recipeSave.RecipeId" />
+<input type="hidden" asp-for="@recipeSave.Title" />
+<input type="hidden" asp-for="@recipeSave.ServingSize" />
+<input type="hidden" asp-for="@recipeSave.SpoonacularId" />
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+    </form>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

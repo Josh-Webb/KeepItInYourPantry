@@ -44,7 +44,8 @@ namespace Pantry.Controllers
             }
 
             var ingredient = await _context.Ingredient
-                .Include(i => i.User)
+                .Include(u => u)
+                .Include(i => i.UserId)
                 .FirstOrDefaultAsync(m => m.IngredientId == id);
             if (ingredient == null)
             {

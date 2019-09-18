@@ -13,7 +13,7 @@ namespace Pantry.Models
         [Required]
         public string Title { get; set; }
         public string ServingSize { get; set; }
-        public string CookTime { get; set; }
+        public string ReadyInMinutes { get; set; }
         public int SpoonacularId { get; set; }
         public string Image { get; set; }
         public int UserId { get; set;  }
