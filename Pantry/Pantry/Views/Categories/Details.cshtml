@@ -20,14 +20,20 @@
     </dl>
 </div>
 
-    @foreach (var model in Model.Ingredients)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => model.Title)
-            </td>
-        </tr>
-    }
+@foreach (var model in Model.Ingredients)
+{<div class="card" style="width: 18em;">
+     <div class="card-body">
+         <h5 class="card-title">
+             @Html.DisplayFor(modelItem => model.Title)
+         </h5>  
+         <h6 class="card-subtitle mb-2 text-muted">
+                 @Html.DisplayFor(modelItem => model.Quantity)
+         </h6>
+         @Html.ActionLink("Details", "Details", "Ingredients", new { id = model.IngredientId }, new { @class = "btn btn-primary stretched-link"})
+     </div>
+</div>
+ 
+}
 
 <div>
     <a asp-action="Edit" asp-route-id="@Model.CategoryId">Edit</a> |
