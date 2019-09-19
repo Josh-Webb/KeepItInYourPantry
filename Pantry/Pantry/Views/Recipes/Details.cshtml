@@ -7,63 +7,64 @@
 <h1>Details</h1>
 
 <div>
-    <h4>RecipeDetailsView</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ReadyInMinutes)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ReadyInMinutes)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Servings)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Servings)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <img src="@Url.Content($"https://spoonacular.com/recipeImages/{Model.Id}-480x360.{Model.ImageType}")" />
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageType)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ImageType)
-        </dd>
-    </dl>
+    <div class="card" style="width: 480px;">
 
-    @foreach (var model in Model.ExtendedIngredients)
-{
-            <div>
-                <img src="@Url.Content($"https://spoonacular.com/cdn/ingredients_100x100/{model.Image}")" />
+        <img src="@Url.Content($"https://spoonacular.com/recipeImages/{Model.Id}-480x360.{Model.ImageType}")" />
+        <div class="card-body">
+        <h2 class="card-title">
+            @Html.DisplayFor(model => model.Title)
+        </h2>
+            
+            <h3 class="card-text">
+                Cook Time: @Html.DisplayFor(model => model.ReadyInMinutes) Minutes
             <br />
-                @Html.DisplayFor(modelItem => model.OriginalString)
+                Serving Size: @Html.DisplayFor(model => model.Servings)
+            </h3>
+        </div>
+
+
+    </div>
+
+ 
+    @foreach (var model in Model.ExtendedIngredients)
+{  
+        <div class="card" style="width: 250px; padding: .5em; margin: .5em;">
+            <img src="@Url.Content($"https://spoonacular.com/cdn/ingredients_250x250/{model.Image}")" />
+            <div class="card-body">
+                <h3 class="card-footer">
+
+                    
+                    @Html.DisplayFor(modelItem => model.OriginalString)
+                </h3>
             </div>
+        </div>
+           
+
 }
+    
+        
 
     @foreach (var model in Model.AnalyzedInstructions)
     {
         @foreach (var modelItem in model.Steps)
 
         { 
-        <div>
-            @Html.DisplayFor(stepItem => modelItem.Number)
-            <br />
-            @Html.DisplayFor(stepItem => modelItem.Step)
-
+<div class="card" style="width: 250px;">
+    <div class="card-body">
+        <div class="card-header">
+        Step @Html.DisplayFor(stepItem => modelItem.Number)
         </div>
+    <br/>
+    <div class="card-text">
+        @Html.DisplayFor(stepItem => modelItem.Step)
+        </div>
+    </div>
+</div>
         }
     }
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+    <a asp-action="Index" class="btn btn-outline-dark">Back to List</a>
 </div>
