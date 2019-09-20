@@ -3,6 +3,9 @@
 
 
 <h1>Categories</h1>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 
 <table class="table">
     <tbody>
@@ -13,7 +16,7 @@
             <tr>
                 <td>
                     
-                    <div class="card text-center">
+                    <div class="card text-center" style="background-color: #E3AC35; border: 2px solid #D7513F;">
                         <h5 class="card-title">
                             @Html.DisplayFor(modelItem => item.CategoryName)
                         </h5>
@@ -24,23 +27,23 @@
 
 
                     <div class="container" style="display: flex; justify-content: space-around; flex-direction: row;">
-                        
-                            @foreach (var ingredient in item.Ingredients)
-                            {
-                                <div class="card" style="width: 10em; margin-left: 2em; margin-bottom: .5em; margin-top: 2em; text-align: center" >
-                                    <div class="card=body">
-                                        <h5 class="card-title">
-                                            @Html.DisplayFor(modelItem => ingredient.Title)
-                                        </h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">
-                                            @Html.DisplayFor(modelItem => ingredient.Quantity)
-                                        </h6>
-                                        @Html.ActionLink(" ", "Details", "Ingredients", new { id = ingredient.IngredientId }, new { @class = "stretched-link" })
-                                    </div>
+
+                        @foreach (var ingredient in item.Ingredients)
+                        {
+                            <div class="card" style="width: 10em; margin-left: 2em; margin-bottom: .5em; margin-top: 2em; text-align: center">
+                                <div class="card=body">
+                                    <h5 class="card-title">
+                                        @Html.DisplayFor(modelItem => ingredient.Title)
+                                    </h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">
+                                        @Html.DisplayFor(modelItem => ingredient.Quantity)
+                                    </h6>
+                                    @Html.ActionLink(" ", "Details", "Ingredients", new { id = ingredient.IngredientId }, new { @class = "stretched-link" })
                                 </div>
-                                @Html.ActionLink("X", "Delete", "Ingredients", new { id = ingredient.IngredientId}, new { @class = "btn close"})
-                            }
-                        </div>
+                            </div>
+                            @Html.ActionLink("X", "Delete", "Ingredients", new { id = ingredient.IngredientId }, new { @class = "btn close" })
+                        }
+                    </div>
                     
                     <br/>
                     @Html.ActionLink("See all...", "Details", "Categories", new { id = item.CatId }, new { @class = "btn btn-outline-info"})

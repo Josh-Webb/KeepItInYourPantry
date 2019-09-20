@@ -89,7 +89,7 @@ namespace Pantry.Controllers
                 ingredient.UserId = user.Id;
                 _context.Add(ingredient);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Categories));
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "Label", ingredient.CategoryId);
             return View(ingredient);
@@ -175,7 +175,7 @@ namespace Pantry.Controllers
             var ingredient = await _context.Ingredient.FindAsync(id);
             _context.Ingredient.Remove(ingredient);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Categories));
         }
 
         private bool IngredientExists(int id)

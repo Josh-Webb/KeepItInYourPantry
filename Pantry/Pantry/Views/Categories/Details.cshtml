@@ -13,7 +13,7 @@
     
 </div>
 <div class="container" style="display: flex; justify-content: space-around; flex-wrap: wrap">
-    
+
     @foreach (var model in Model.Ingredients)
     {<div class="card" style="width: 10em; margin-left: 2em; margin-bottom: .5em; margin-top: 2em; text-align: center">
             <div class="card-body">
@@ -23,13 +23,14 @@
                 <h6 class="card-subtitle mb-2 text-muted">
                     @Html.DisplayFor(modelItem => model.Quantity)
                 </h6>
-                @Html.ActionLink("Details", "Details", "Ingredients", new { id = model.IngredientId }, new { @class = "btn btn-primary stretched-link" })
+                @Html.ActionLink(" ", "Details", "Ingredients", new { id = model.IngredientId }, new { @class = "stretched-link" })
             </div>
         </div>
-    
-  
-}
-    </div>
+        @Html.ActionLink("X", "Delete", "Ingredients", new { id = model.IngredientId }, new { @class = "btn close" })
+
+
+    }
+</div>
 
 <div>
     <a asp-action="Index">Back to List</a>

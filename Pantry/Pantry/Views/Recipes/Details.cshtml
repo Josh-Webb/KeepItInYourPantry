@@ -8,7 +8,7 @@
 
 <div>
     <hr />
-    <div class="card" style="width: 480px;">
+    <div class="card text-center" style="width: 480px; margin: 0 auto; float: none;">
 
         <img src="@Url.Content($"https://spoonacular.com/recipeImages/{Model.Id}-480x360.{Model.ImageType}")" />
         <div class="card-body">
@@ -26,7 +26,7 @@
 
     </div>
 
- 
+<div class="row">
     @foreach (var model in Model.ExtendedIngredients)
 {  
         <div class="card" style="width: 250px; padding: .5em; margin: .5em;">
@@ -42,6 +42,7 @@
            
 
 }
+    </div>
     
         
 
@@ -50,7 +51,7 @@
         @foreach (var modelItem in model.Steps)
 
         { 
-<div class="card" style="width: 250px;">
+<div class="card" style="width: 50%; margin: 0 auto; float: none;">
     <div class="card-body">
         <div class="card-header">
         Step @Html.DisplayFor(stepItem => modelItem.Number)
