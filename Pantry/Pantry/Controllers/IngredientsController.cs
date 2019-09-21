@@ -142,7 +142,7 @@ namespace Pantry.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Categories));
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", ingredient.UserId);
             return View(ingredient);
@@ -199,6 +199,7 @@ namespace Pantry.Controllers
                 join p in _context.Ingredient
                 on t.CategoryId equals p.CategoryId
                 where p.UserId == loggedUser.Id
+                orderby p.IngredientId descending
                 group new { t, p } by new { t.CategoryId, t.Title } into grouped
                 select new GroupedCategories
                 {
@@ -206,6 +207,28 @@ namespace Pantry.Controllers
                     CategoryName = grouped.Key.Title,
                     IngredientCount = grouped.Select(x => x.p.IngredientId).Count(),
                     Ingredients = grouped.Select(x => x.p).Take(5)
+                }).ToListAsync();
+            return View(model);
+        }
+        //Ingredient Category View
+        public async Task<IActionResult> GroupedIngredients(int? id)
+        {
+            var loggedUser = await GetUserAsync();
+            var model = new CategoryViewModel();
+
+            model.GroupedCategories = await (
+                from c in _context.Category
+                join i in _context.Ingredient
+                on c.CategoryId equals i.CategoryId
+                where i.UserId == loggedUser.Id || c.CategoryId == id
+                orderby i.IngredientId descending
+                group new { c, i } by new { c.CategoryId, c.Title } into grouped
+                select new GroupedCategories
+                {
+                    CatId = grouped.Key.CategoryId,
+                    CategoryName = grouped.Key.Title,
+                    IngredientCount = grouped.Select(x => x.i.IngredientId).Count(),
+                    Ingredients = grouped.Select(x => x.i)
                 }).ToListAsync();
             return View(model);
         }
