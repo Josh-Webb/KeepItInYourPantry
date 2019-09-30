@@ -10,7 +10,9 @@ a.navbar-brand {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    font-family: 'Signika', sans-serif;
+    color: #f5f5dc;
 }
 @media (min-width: 768px) {
   html {
