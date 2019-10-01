@@ -15,7 +15,10 @@
 <div class="container" style="display: flex; justify-content: space-around; flex-wrap: wrap">
 
     @foreach (var model in Model.Ingredients)
-    {<div class="card" style="width: 10em; margin-left: 2em; margin-bottom: .5em; margin-top: 2em; text-align: center">
+    {
+        @if (model.UserId == loggedUser.Id)
+        {
+        <div class="card" style="width: 10em; margin-left: 2em; margin-bottom: .5em; margin-top: 2em; text-align: center">
             <div class="card-body">
                 <h5 class="card-title">
                     @Html.DisplayFor(modelItem => model.Title)
@@ -28,8 +31,8 @@
         </div>
         @Html.ActionLink("X", "Delete", "Ingredients", new { id = model.IngredientId }, new { @class = "btn close" })
 
-
-    }
+            }
+        }
 </div>
 
 <div>

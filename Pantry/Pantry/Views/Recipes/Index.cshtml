@@ -5,25 +5,24 @@
 }
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    
+@if (Model.Count() < 1)
+{
+    <h1>Recipes!</h1>
+    <h3>No so fast!  It looks like you haven't added any ingredients to your pantry. <br /> Click on the Ingredients tab and add some ingredients and then come back for recipes catered directly to what you have in your kitchen.</h3>
+}
+else
+{
 
-<h1>Recipes!</h1>
-<h3>Here's some recipes curated by the things you have in your pantry.</h3>
-<h4>Now I can't guarantee that you do have everything that I think you do, but it's going to be in the same ball park.</h4>
+    <h1>Recipes!</h1>
+    <h3>Here's some recipes curated by the things you have in your pantry.</h3>
+    <h4>Now I can't guarantee that you do have everything that I think you do, but it's going to be in the same ball park.</h4>
 
-<table class="table">
-    <tbody>
-        @if(Model.Count() < 1)
-        {
-            <tr>
-                Nope
-            </tr>
-        }
-        else
-        {
-        @foreach (var item in Model)
+    <table class="table">
+        <tbody>
 
-        {
+            @foreach (var item in Model)
+
+            {
                 <tr>
                     <td>
                         <img src="@Url.Content($"https://spoonacular.com/recipeImages/{item.Id}-240x150.{item.ImageType}")" />
@@ -64,8 +63,9 @@
                 </script>
 
 
-            }
 
-        }
+
+            }
         </tbody>
-</table>
+    </table>
+}

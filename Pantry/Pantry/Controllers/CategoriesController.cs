@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pantry.Data;
 using Pantry.Models;
+using Pantry.Models.CategoryViewModels;
 
 namespace Pantry.Controllers
 {
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CategoriesController(ApplicationDbContext context)
+        public CategoriesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Categories
@@ -28,6 +32,9 @@ namespace Pantry.Controllers
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var loggedUser = await GetUserAsync();
+            
+
             if (id == null)
             {
                 return NotFound();
@@ -35,11 +42,13 @@ namespace Pantry.Controllers
 
             var category = await _context.Category
                 .Include(m => m.Ingredients)
+                .Include(loggedUser.Id)
                 .FirstOrDefaultAsync(m => m.CategoryId == id);
             if (category == null)
             {
                 return NotFound();
             }
+            
 
             return View(category);
         }
@@ -149,6 +158,11 @@ namespace Pantry.Controllers
         private bool CategoryExists(int id)
         {
             return _context.Category.Any(e => e.CategoryId == id);
+        }
+
+        private Task<ApplicationUser> GetUserAsync()
+        {
+            return _userManager.GetUserAsync(HttpContext.User);
         }
     }
 }
