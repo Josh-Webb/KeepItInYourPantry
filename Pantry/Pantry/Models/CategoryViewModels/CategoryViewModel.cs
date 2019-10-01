@@ -11,6 +11,7 @@ namespace Pantry.Models.CategoryViewModels
         [Key]
         public int CategoryId { get; set; }
         public int IngredientId { get; set; }
+        public int UserId { get; set; }
         public List<Category> Categories { get; set; }
         public virtual List<GroupedCategories> GroupedCategories { get; set; }
     }

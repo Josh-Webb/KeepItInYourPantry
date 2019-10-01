@@ -32,7 +32,11 @@ namespace Pantry.Controllers
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            var loggedUser = await GetUserAsync();
+
+            //return View(model);
+
+            var loggedUser = GetUserAsync();
+                
             
 
             if (id == null)
@@ -42,8 +46,7 @@ namespace Pantry.Controllers
 
             var category = await _context.Category
                 .Include(m => m.Ingredients)
-                .Include(loggedUser.Id)
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
+               .FirstOrDefaultAsync(m => m.CategoryId == id);
             if (category == null)
             {
                 return NotFound();
@@ -51,6 +54,8 @@ namespace Pantry.Controllers
             
 
             return View(category);
+
+
         }
 
         // GET: Categories/Create

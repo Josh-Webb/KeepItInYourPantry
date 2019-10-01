@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    var userId = User.Identity.Name;
 }
 
 <h1>@Html.DisplayFor(model => model.Title)</h1>
@@ -16,8 +17,10 @@
 
     @foreach (var model in Model.Ingredients)
     {
-        @if (model.UserId == loggedUser.Id)
-        {
+        @*@if (model.User.UserName != userId)
+        { }
+        else
+        {*@
         <div class="card" style="width: 10em; margin-left: 2em; margin-bottom: .5em; margin-top: 2em; text-align: center">
             <div class="card-body">
                 <h5 class="card-title">
@@ -31,8 +34,8 @@
         </div>
         @Html.ActionLink("X", "Delete", "Ingredients", new { id = model.IngredientId }, new { @class = "btn close" })
 
-            }
-        }
+        //}
+    }
 </div>
 
 <div>
