@@ -23,6 +23,7 @@ namespace Pantry.Models
         public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
+
         public Category Category { get; set; }
 
     }

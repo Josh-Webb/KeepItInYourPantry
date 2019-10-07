@@ -176,10 +176,13 @@ namespace Pantry.Controllers
         private async Task<IEnumerable<RecipeForListModel>> GetRecipesAsync()
         {
             var user = await GetUserAsync();
+            //Creates url string to be fed into api.  All it needs is ingredient followed by ,+.  ex: raddish,+carrot,+turnip
             var ingredientsList = String.Join(",+", _context.Ingredient
+                //Checking that the ingredients were put in by the user.
                 .Where(p => p.UserId == user.Id)
                 .Select(i => i.Title));
             var key = _config["ApiKeys:Spoonacular"];
+            //Ranking is a special property with spoonacular.  1 tries to optimize the amount of ingredients used and 2 optimizes the least amount of ingredients missing.
             var url = $"{_byIngredientsUrl}{key}&ingredients={ingredientsList}&ranking=2";
             var client = new HttpClient();
             var response = await client.GetAsync(url);

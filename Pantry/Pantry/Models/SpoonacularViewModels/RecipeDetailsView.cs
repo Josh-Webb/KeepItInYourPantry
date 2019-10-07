@@ -10,11 +10,13 @@ namespace Pantry.Models.SpoonacularViewModels
         public int Id { get; set; }
         
         public string Title { get; set; }
+
         public int ReadyInMinutes { get; set; }
 
         public int Servings { get; set; }
 
         public string Image { get; set; }
+
         public string ImageType { get; set; }
 
         public virtual ICollection<ExtendedIngredientsViewModel> ExtendedIngredients { get; set; }
