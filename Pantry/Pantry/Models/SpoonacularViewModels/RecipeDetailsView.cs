@@ -17,6 +17,8 @@ namespace Pantry.Models.SpoonacularViewModels
         public string Image { get; set; }
         public string ImageType { get; set; }
 
+        public string RecipeSourceURL { get; set; }
+
         public virtual ICollection<ExtendedIngredientsViewModel> ExtendedIngredients { get; set; }
 
         public virtual ICollection<AnalyzedInstructions> AnalyzedInstructions { get; set; }
