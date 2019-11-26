@@ -19,9 +19,9 @@
             <h3 class="card-text">
                 Cook Time: @Html.DisplayFor(model => model.ReadyInMinutes) Minutes
             <br />
-                Serving Size: @Html.DisplayFor(model => model.Servings)
+                Serving Size: @Html.DisplayFor(model => model.Servings) || @Html.DisplayFor(model => model.RecipeSourceURL)
             </h3>
-            <button a="@Html.DisplayFor(model => model.RecipeSourceURL)" title="Recipe Source"></button>
+            <a href="@Html.DisplayFor(model => model.RecipeSourceURL)">Worth a try</a>
         </div>
 
 
