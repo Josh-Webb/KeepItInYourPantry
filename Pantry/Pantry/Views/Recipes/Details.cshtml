@@ -21,6 +21,7 @@
             <br />
                 Serving Size: @Html.DisplayFor(model => model.Servings)
             </h3>
+            <button a="@Html.DisplayFor(model => model.RecipeSourceURL)" title="Recipe Source"></button>
         </div>
 
 
@@ -44,7 +45,6 @@
 }
     </div>
     
-        
 
     @foreach (var model in Model.AnalyzedInstructions)
     {
