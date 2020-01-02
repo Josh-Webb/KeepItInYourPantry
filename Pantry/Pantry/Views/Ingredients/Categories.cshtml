@@ -26,7 +26,7 @@
 
 
 
-                    <div class="container" style="display: flex; justify-content: space-around; flex-direction: row;">
+                    <div class="container" style="display: flex; justify-content: space-around; flex-direction: row; flex-wrap: wrap;">
 
                         @foreach (var ingredient in item.Ingredients)
                         {
@@ -46,7 +46,7 @@
                     </div>
                     
                     <br/>
-                    @Html.ActionLink("See all...", "Details", "Categories", new { id = item.CatId }, new { @class = "btn btn-outline-info"})
+                    <!-- @Html.ActionLink("See all...", "Details", "Categories", new { id = item.CatId }, new { @class = "btn btn-outline-info"}) -->
                 </td>
             </tr>
                 }
