@@ -21,6 +21,7 @@ namespace Pantry.Controllers
         private readonly IConfiguration _config;
         private readonly string _byIngredientsUrl = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=";
         private readonly string _fullRecipeUrl = "https://api.spoonacular.com/recipes/";
+        private readonly string key = "f98f348f39f1439b84a56d3abfda1a7e";
 
 
         public RecipesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IConfiguration config)
@@ -179,7 +180,7 @@ namespace Pantry.Controllers
             var ingredientsList = String.Join(",+", _context.Ingredient
                 .Where(p => p.UserId == user.Id)
                 .Select(i => i.Title));
-            var key = _config["ApiKeys:Spoonacular"];
+            //var key = _config["ApiKeys:Spoonacular"];
             var url = $"{_byIngredientsUrl}{key}&ingredients={ingredientsList}&ranking=2";
             var client = new HttpClient();
             var response = await client.GetAsync(url);
@@ -201,7 +202,7 @@ namespace Pantry.Controllers
 
         private async Task<RecipeDetailsView> GetFullRecipe(int? id)
         {
-            var key = _config["ApiKeys:Spoonacular"];
+            //var key = _config["ApiKeys:Spoonacular"];
             var url = $"{_fullRecipeUrl}{id}/information?apiKey={key}";
             var client = new HttpClient();
             var response = await client.GetAsync(url);
