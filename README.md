@@ -2,6 +2,7 @@
 
 THIS APP IS DEPLOYED!
 Read through the description and then check it out at https://keepitinyourpantry.azurewebsites.net/.
+If you don't want to register an email and fill out a pantry yourself you can login in with "guest@email.com" and "Password1$"
 
 Keep It In Your Pantry is a pantry tracking/recipe finding application built in C#, ASP.NET Core, the MVC framework, a local SQL Server and implements the Spoonacular API.
 <img src="Pantry/Pantry/wwwroot/images/Screenshot (12).png">
