@@ -206,7 +206,7 @@ namespace Pantry.Controllers
                     CatId = grouped.Key.CategoryId,
                     CategoryName = grouped.Key.Title,
                     IngredientCount = grouped.Select(x => x.p.IngredientId).Count(),
-                    Ingredients = grouped.Select(x => x.p)
+                    Ingredients = grouped.Select(x => x.p).OrderBy(p => p.Title)
                 }).ToListAsync();
             return View(model);
         }
