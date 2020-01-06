@@ -5,43 +5,49 @@
 }
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    
 
-<h1>Recipes!</h1>
+@if (Model.Count() < 1)
+{
+<tr>
+    <h1>Recipes!</h1>
+    <h3>This is where you will find recipes curated by what you have in your pantry.</h3>
+    <h4>But it looks like you don't have any saved yet.</h4>
+    <h4>Click here to start adding to your pantry and come back after you have some ingredients.</h4>
+    <a  asp-controller="Ingredients" asp-action="Create">Add Ingredient to Pantry</a>
+</tr>
+}
+else
+{
+
+    <h1>Recipes!</h1>
 <h3>Here's some recipes curated by the things you have in your pantry.</h3>
 <h4>Now I can't guarantee that you do have everything that I think you do, but it's going to be in the same ball park.</h4>
 
 <table class="table">
     <tbody>
-        @if(Model.Count() < 1)
-        {
-            <tr>
-                Nope
-            </tr>
-        }
-        else
-        {
+
+        
         @foreach (var item in Model)
 
-        {
-                <tr>
-                    <td>
-                        <img src="@Url.Content($"https://spoonacular.com/recipeImages/{item.Id}-240x150.{item.ImageType}")" />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td id="@($"piechart{item.Id}")"></td>
+{
+            <tr>
+                <td>
+                    <img src="@Url.Content($"https://spoonacular.com/recipeImages/{item.Id}-240x150.{item.ImageType}")" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td id="@($"piechart{item.Id}")"></td>
 
 
-                    <td>
-                        @Html.ActionLink("See Recipe", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
-                    </td>
-                </tr>
+                <td>
+                    @Html.ActionLink("See Recipe", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
+                </td>
+            </tr>
 
 
 
-                <script type="text/javascript">
+            <script type="text/javascript">
                 // Load google charts
                 google.charts.load('current', { 'packages': ['corechart'] });
                 google.charts.setOnLoadCallback(drawChart);
@@ -61,11 +67,12 @@
                     var chart = new google.visualization.PieChart(document.getElementById('@($"piechart{item.Id}")'));
                     chart.draw(data, options);
                 }
-                </script>
+            </script>
 
 
-            }
+}
 
-        }
-        </tbody>
+        
+    </tbody>
 </table>
+}
