@@ -22,16 +22,6 @@ The recipe details page will present the user with all of that plus the serving 
 <img src="Pantry/Pantry/wwwroot/images/Screenshot (30).png">
 
 
-To run the app you will need .Net Core 2.2, Microsoft SQL server, Visual Studio and a Spoonacular API key.
-<br />
-After cloning it down open your Secrets.Json with 'Manage User Secrets'.
-Create 
-<br />
-Keys {
- Spoonacular: 'yourApiKey'
-}
-<br />
-Create a new migration, update your database and run the app. 
-<br />
+
 More features to come and if you have any suggestions or feedback please reach out at joshwebb42@gmail.com or https://www.linkedin.com/in/josh-b-webb.
 
