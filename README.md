@@ -8,7 +8,7 @@ Keep It In Your Pantry is a pantry tracking/recipe finding application built in 
 <img src="Pantry/Pantry/wwwroot/images/Screenshot (12).png">
 A user can create ingredients to be added to their pantry.
 <br />
-They will be stored and organized by their category. Only a user with the email 'joshwebb42@gmail.com' (my email ;)) can add new categories.
+They will be stored and organized by their category. Only a user with the email 'joshwebb42@gmail.com' can add new categories.
 <img src="Pantry/Pantry/wwwroot/images/Screenshot (13).png">
 <img src="Pantry/Pantry/wwwroot/images/Screenshot (25).png">
 <img src="Pantry/Pantry/wwwroot/images/Screenshot (26).png">
