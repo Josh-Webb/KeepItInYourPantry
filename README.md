@@ -1,6 +1,5 @@
 # KeepItInYourPantry
 
-THIS APP IS DEPLOYED!
 
 Keep It In Your Pantry is a pantry tracking/recipe finding application built in C#, ASP.NET Core, the MVC framework, a local SQL Server, but recently graduated to a hosted server through Azure, and implements the Spoonacular API.
 <img src="Pantry/Pantry/wwwroot/images/Screenshot (12).png">
